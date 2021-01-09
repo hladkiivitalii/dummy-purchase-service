@@ -1,0 +1,56 @@
+#!groovy
+// Run docker build
+properties([disableConcurrentBuilds()])
+
+pipeline {
+    agent {
+        label 'master'
+        }
+    triggers { pollSCM('* * * * *')}
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+    stages {
+        stage("docker login") {
+            steps {
+                echo "============ Docker login ============"
+            }
+        }
+        stage("create docker image") {
+            steps {
+                echo " ============== start building image =================="
+                dir ('src') {
+                	sh ' sudo docker build -t localhost:5000/purchase-service:latest . '
+                }
+            }
+        }
+        stage("Docker push") {
+            steps {
+                echo " ============== push docker image =================="
+                sh '''
+                sudo docker push localhost:5000/purchase-service:latest
+                '''
+            }
+        }
+        stage("Pull Image") {
+            steps {
+                echo " ============== get docker image on server =================="
+                sh '''
+                ssh root@46.101.208.229 'docker pull 104.248.129.112:5000/purchase-service:latest'
+                '''
+            }
+        }
+        stage("Run Image") {
+            steps {
+                echo " ============== run docker image on server =================="
+                sh '''
+                ssh root@46.101.208.229 'docker stop purchase-service '
+                '''
+                sh '''
+                ssh root@46.101.208.229 'docker run -p 80:80 -d --name purchase-service  --rm 104.248.129.112:5000/purchase-service:latest '
+                '''
+            }
+        }
+    }
+}
