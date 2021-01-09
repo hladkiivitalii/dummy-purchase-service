@@ -20,12 +20,7 @@ pipeline {
         stage("create docker image") {
             steps {
                 echo " ============== start building image =================="
-                ls
-                pwd
-                dir ('src') {
-                    pwd
                 	sh ' sudo docker build -t localhost:5000/purchase-service:latest . '
-                }
             }
         }
         stage("Docker push") {
