@@ -19,7 +19,7 @@ var job = new CronJob('* * * * * *', async function() {
 
     await purchaseService.addPurchase(cusotmer_id, items);
     console.log('You will see this message every second');
-}, null, true, 'America/Los_Angeles');
-job.start();
+}, null, null, 'America/Los_Angeles');
+// job.start();
 
-module.exports.start = () => job.start();
+module.exports.start = () => job;

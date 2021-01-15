@@ -32,7 +32,7 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 const croneJob = require('../cron/cron-task');
-croneJob.start;
+//croneJob.start;
 /**
  * Normalize a port into a number, string, or false.
  */
