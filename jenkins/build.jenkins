@@ -46,7 +46,7 @@ pipeline {
                 ssh root@46.101.208.229 'docker stop purchase-service '
                 '''
                 sh '''
-                ssh root@46.101.208.229 'docker run -p 80:80 -d --name purchase-service  --rm 104.248.129.112:5000/purchase-service:latest '
+                ssh root@46.101.208.229 'docker run -p 3000:3000 -d --name purchase-service  --rm 104.248.129.112:5000/purchase-service:latest '
                 '''
             }
         }
