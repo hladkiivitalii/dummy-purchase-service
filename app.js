@@ -28,7 +28,7 @@ app.use('/users', usersRouter);
 app.use('/customer', customerRouter);
 app.use('/purchase', purchaseRouter);
 app.use('/order', orderRouter);
-app.use('/monitoring', defaultMetric);
+app.use('/metrics', defaultMetric);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
