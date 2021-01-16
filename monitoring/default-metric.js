@@ -9,3 +9,4 @@ register.setDefaultLabels({
 client.collectDefaultMetrics({ register });
 
 module.exports.metrics = async () => await register.metrics();
+module.exports.contentType = () => register.contentType;

@@ -6,9 +6,13 @@ const monitoringService = require('../monitoring/default-metric');
 router.get('/', async function(req, res, next) {
     try {
         custom.startMessure();
+        const contentType = monitoringService.contentType;
         const metrics = await monitoringService.metrics();
         custom.endMessure('/', 200, 'get_metrics');
-        res.json(metrics);
+
+        console.log('sdsdf')
+        res.set('Content-Type', contentType);
+        res.end(metrics);
     } catch (e) {
         return e;
     }
