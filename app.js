@@ -9,6 +9,8 @@ var usersRouter = require('./routes/users');
 const customerRouter = require('./routes/customer');
 const purchaseRouter = require('./routes/purchase');
 const orderRouter = require('./routes/order');
+const defaultMetric = require('./routes/monitoring');
+
 var app = express();
 
 // view engine setup
@@ -26,6 +28,7 @@ app.use('/users', usersRouter);
 app.use('/customer', customerRouter);
 app.use('/purchase', purchaseRouter);
 app.use('/order', orderRouter);
+app.use('/monitoring', defaultMetric);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
