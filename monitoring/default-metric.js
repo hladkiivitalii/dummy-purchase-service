@@ -15,10 +15,11 @@ const counter = new client.Counter({
 });
 
 const timer = new client.Histogram({
-    name: 'node_request_duration_seconds',
-    help: 'Histogram for the duration in seconds.',
-    buckets: [1, 2, 5, 6, 10]
-});
+    name: 'http_request_duration_seconds',
+    help: 'Duration of HTTP requests in seconds',
+    labelNames: ['method', 'route', 'code'],
+    buckets: [0.1, 0.3, 0.5, 0.7, 1, 3, 5, 7, 10] // 0.1 to 10 seconds
+})
 
 
 register.registerMetric(counter);
@@ -31,12 +32,11 @@ module.exports.contentType = () => register.contentType;
 const countHttpRequestsMiddleware = function (req, res, next) {
     try {
         counter.inc();
-        const start = moment().valueOf();
+        const end = timer.startTimer();
         res.on('finish', function () {
             try {
-                const stop = moment().valueOf();
-                const time = stop - start;
-                timer.observe(time)
+                const route = '/';
+                end({ route, code: res.statusCode, method: req.method })
             } catch (e) {
                 console.log(e)
             }
