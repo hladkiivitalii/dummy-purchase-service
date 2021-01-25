@@ -23,22 +23,28 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const metric = require('./monitoring/default-metric');
+
+app.use(metric.countHttpRequestsMiddleware);
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/customer', customerRouter);
 app.use('/purchase', purchaseRouter);
 app.use('/order', orderRouter);
 app.use('/metrics', defaultMetric);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
+
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
+  // set locals, only providing error in development.env
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = req.app.get('env') === 'development.env' ? err : {};
 
   // render the error page
   res.status(err.status || 500);
