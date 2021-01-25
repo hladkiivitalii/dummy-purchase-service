@@ -15,9 +15,9 @@ const counter = new client.Counter({
 });
 
 const timer = new client.Histogram({
-    name: 'http_request_time',
-    help: 'Time http request took',
-    buckets: [0.1, 5, 15, 50, 100, 500],
+    name: 'node_request_duration_seconds',
+    help: 'Histogram for the duration in seconds.',
+    buckets: [1, 2, 5, 6, 10]
 });
 
 
