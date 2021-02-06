@@ -7,9 +7,9 @@ router.post('/', async function(req, res, next) {
     try {
         const customer_id= req.body.customer_id;
         const items = req.body.items;
-        const res = await purchaseService.addPurchase(customer_id, items);
-        logger.debug(JSON.stringify(res));
-        res.json(res)
+        const result = await purchaseService.addPurchase(customer_id, items);
+        logger.debug(JSON.stringify(result));
+        res.json(result)
     } catch (e) {
         return e;
     }

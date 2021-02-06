@@ -46,6 +46,7 @@ const countHttpRequestsMiddleware = function (req, res, next) {
         const end = timer.startTimer();
         res.on('finish', function () {
             try {
+                console.log(`***********************metric*********************`)
                 end({ route, code: res.statusCode, method: req.method })
             } catch (e) {
                 console.log(e)

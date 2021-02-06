@@ -27,8 +27,7 @@ const addPurchase = async (customer_id, items) => {
         purchase = await purchaseRepository.addPurchaseList(purchaseList, t);
     });
 
-    logger.debug(JSON.stringify(result))
-    return purchase;
+    return result;
 };
 
 module.exports = {
