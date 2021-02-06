@@ -31,11 +31,21 @@ module.exports.contentType = () => register.contentType;
 
 const countHttpRequestsMiddleware = function (req, res, next) {
     try {
+        if (req.url.includes('metrics'))
+            next();
+
+        let route;
+        if (req.url.includes('purchase'))
+            route = 'purchase';
+        else if (req.url.includes('order'))
+            route = 'order';
+        else
+            next();
+
         counter.inc();
         const end = timer.startTimer();
         res.on('finish', function () {
             try {
-                const route = '/';
                 end({ route, code: res.statusCode, method: req.method })
             } catch (e) {
                 console.log(e)
