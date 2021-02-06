@@ -32,7 +32,7 @@ module.exports.contentType = () => register.contentType;
 const countHttpRequestsMiddleware = function (req, res, next) {
     try {
         if (req.url.includes('metrics'))
-            next();
+            return next();
 
         let route;
         if (req.url.includes('purchase'))
@@ -40,7 +40,7 @@ const countHttpRequestsMiddleware = function (req, res, next) {
         else if (req.url.includes('order'))
             route = 'order';
         else
-            next();
+            return next();
 
         counter.inc();
         const end = timer.startTimer();
@@ -51,7 +51,7 @@ const countHttpRequestsMiddleware = function (req, res, next) {
                 console.log(e)
             }
         });
-        next();
+        return next();
     } catch (e) {
         console.log(e)
     }
