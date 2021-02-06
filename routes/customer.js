@@ -5,7 +5,6 @@ let customerRepository = require('../repository/customer');
 router.get('/:id', async function(req, res, next) {
     try {
         const customer = await customerRepository.findCustomerById(req.params.id);
-        console.log(`got customer: ${JSON.stringify(customer)}`)
         res.json(customer);
     } catch (e) {
         return e;

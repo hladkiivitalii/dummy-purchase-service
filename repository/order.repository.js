@@ -1,7 +1,7 @@
 const Order = require('../model/order');
 const Purchase = require('../model/purchase');
-const creatOrder = async (order) => {
-    return Order.create(order);
+const creatOrder = async (order, t) => {
+    return Order.create(order, {transaction: t});
 };
 
 const findOrderById = async (orderId) => {
