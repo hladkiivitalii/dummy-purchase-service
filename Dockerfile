@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["node", "bin/www.js"]
+CMD ["pm2-runtime", "bin/www.js"]
