@@ -11,4 +11,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["pm2-runtime", "proces.yml"]
+CMD ["pm2-runtime", "proces.json"]
