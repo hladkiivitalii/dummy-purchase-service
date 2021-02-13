@@ -43,7 +43,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/customer', customerRouter);
 app.use('/purchase', purchaseRouter);
-app.use('/order', cache_wrapper(orderRouter));
+// app.use('/order', cache_wrapper(orderRouter));
 app.use('/metrics', defaultMetric);
 app.use((req, res, next) => {
   next();
