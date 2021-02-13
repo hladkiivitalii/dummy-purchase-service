@@ -31,11 +31,11 @@ const metric = require('./monitoring/default-metric');
 app.use(metric.countHttpRequestsMiddleware);
 
 const cache_wrapper = (route) =>  async (req, res, next) => {
-      // const from_cache = await cache.get(req);
-      // if (from_cache) {
-      //   return res.json(from_cache);
-      // }
-      // else
+      const from_cache = await cache.get(req);
+      if (from_cache) {
+        return res.json(from_cache);
+      }
+      else
         return route(req, res, next)
 };
 
